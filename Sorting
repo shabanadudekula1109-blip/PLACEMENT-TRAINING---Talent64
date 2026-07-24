@@ -1,0 +1,100 @@
+1. Merge Sorted Array (LeetCode 88)
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m - 1;
+        int j = n - 1;
+        int k = m + n - 1;
+
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[k--] = nums1[i--];
+            } else {
+                nums1[k--] = nums2[j--];
+            }
+        }
+
+        while (j >= 0) {
+            nums1[k--] = nums2[j--];
+        }
+    }
+}
+2. Majority Element (LeetCode 169)
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        int candidate = 0;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+
+            if (num == candidate) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+
+        return candidate;
+    }
+}
+3. Contains Duplicate (LeetCode 217)
+import java.util.HashSet;
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int num : nums) {
+            if (set.contains(num)) {
+                return true;
+            }
+
+            set.add(num);
+        }
+
+        return false;
+    }
+}
+4. Missing Number (LeetCode 268)
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        int sum = n * (n + 1) / 2;
+
+        for (int num : nums) {
+            sum -= num;
+        }
+
+        return sum;
+    }
+}
+5. Intersection of Two Arrays (LeetCode 349)
+import java.util.HashSet;
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> set1 = new HashSet<>();
+        HashSet<Integer> result = new HashSet<>();
+
+        for (int num : nums1) {
+            set1.add(num);
+        }
+
+        for (int num : nums2) {
+            if (set1.contains(num)) {
+                result.add(num);
+            }
+        }
+
+        int[] ans = new int[result.size()];
+        int index = 0;
+
+        for (int num : result) {
+            ans[index++] = num;
+        }
+
+        return ans;
+    }
+}
