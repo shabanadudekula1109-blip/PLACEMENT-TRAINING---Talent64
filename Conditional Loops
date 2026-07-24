@@ -1,0 +1,97 @@
+1.Subtract the Product and Sum of Digits of an Integer
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int temp = n;
+        int sum = 0;
+        int product = 1;
+
+        while (temp > 0) {
+            int digit = temp % 10;
+            sum += digit;
+            product *= digit;
+            temp /= 10;
+        }
+
+        System.out.println(product - sum);
+    }
+}
+2.Input a number and print all the factors of that number (use loops)
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+}
+3.Take integer inputs till the user enters 0 and print the sum of all numbers (HINT: while loop)
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int sum = 0;
+
+        while (true) {
+            int n = sc.nextInt();
+
+            if (n == 0) {
+                break;
+            }
+
+            sum += n;
+        }
+
+        System.out.println(sum);
+    }
+}
+4.Take integer inputs till the user enters 0 and print the largest number from all
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int largest = Integer.MIN_VALUE;
+
+        while (true) {
+            int n = sc.nextInt();
+
+            if (n == 0) {
+                break;
+            }
+
+            if (n > largest) {
+                largest = n;
+            }
+        }
+
+        System.out.println(largest);
+    }
+}
+5.Addition Of Two Numbers
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+
+        System.out.println(a + b);
+    }
+}
