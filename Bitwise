@@ -1,0 +1,169 @@
+1. Gray Code (LeetCode 89)
+import java.util.*;
+
+class Solution {
+    public List<Integer> grayCode(int n) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < (1 << n); i++) {
+            result.add(i ^ (i >> 1));
+        }
+
+        return result;
+    }
+}
+2. Repeated DNA Sequences (LeetCode 187)
+import java.util.*;
+
+class Solution {
+    public List<String> findRepeatedDnaSequences(String s) {
+        HashSet<String> seen = new HashSet<>();
+        HashSet<String> repeated = new HashSet<>();
+
+        for (int i = 0; i <= s.length() - 10; i++) {
+            String sub = s.substring(i, i + 10);
+
+            if (!seen.add(sub)) {
+                repeated.add(sub);
+            }
+        }
+
+        return new ArrayList<>(repeated);
+    }
+}
+3. Minimum Number of Flips to Convert Binary Matrix to Zero Matrix (LeetCode 1284)
+import java.util.*;
+
+class Solution {
+    public int minFlips(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
+
+        int start = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 1) {
+                    start |= (1 << (i * n + j));
+                }
+            }
+        }
+
+        Queue<Integer> queue = new LinkedList<>();
+        HashSet<Integer> visited = new HashSet<>();
+
+        queue.offer(start);
+        visited.add(start);
+
+        int[][] dir = {{0,0},{1,0},{-1,0},{0,1},{0,-1}};
+        int steps = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            while (size-- > 0) {
+                int state = queue.poll();
+
+                if (state == 0) {
+                    return steps;
+                }
+
+                for (int i = 0; i < m; i++) {
+                    for (int j = 0; j < n; j++) {
+                        int next = state;
+
+                        for (int[] d : dir) {
+                            int r = i + d[0];
+                            int c = j + d[1];
+
+                            if (r >= 0 && r < m && c >= 0 && c < n) {
+                                next ^= (1 << (r * n + c));
+                            }
+                        }
+
+                        if (!visited.contains(next)) {
+                            visited.add(next);
+                            queue.offer(next);
+                        }
+                    }
+                }
+            }
+
+            steps++;
+        }
+
+        return -1;
+    }
+}
+4. Minimum Cost to Connect Two Groups of Points (LeetCode 1595)
+import java.util.*;
+
+class Solution {
+    int[][] memo;
+
+    public int connectTwoGroups(List<List<Integer>> cost) {
+        int m = cost.size();
+        int n = cost.get(0).size();
+
+        memo = new int[m][1 << n];
+
+        for (int[] row : memo) {
+            Arrays.fill(row, -1);
+        }
+
+        int[] minCost = new int[n];
+        Arrays.fill(minCost, Integer.MAX_VALUE);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                minCost[j] = Math.min(minCost[j], cost.get(i).get(j));
+            }
+        }
+
+        return dfs(0, 0, cost, minCost);
+    }
+
+    int dfs(int i, int mask, List<List<Integer>> cost, int[] minCost) {
+        if (i == cost.size()) {
+            int ans = 0;
+
+            for (int j = 0; j < minCost.length; j++) {
+                if ((mask & (1 << j)) == 0) {
+                    ans += minCost[j];
+                }
+            }
+
+            return ans;
+        }
+
+        if (memo[i][mask] != -1) {
+            return memo[i][mask];
+        }
+
+        int ans = Integer.MAX_VALUE;
+
+        for (int j = 0; j < cost.get(0).size(); j++) {
+            ans = Math.min(ans,
+                    cost.get(i).get(j) +
+                    dfs(i + 1, mask | (1 << j), cost, minCost));
+        }
+
+        return memo[i][mask] = ans;
+    }
+}
+5. Find XOR Sum of All Pairs Bitwise AND (LeetCode 1835)
+class Solution {
+    public int getXORSum(int[] arr1, int[] arr2) {
+        int xor1 = 0;
+        int xor2 = 0;
+
+        for (int x : arr1) {
+            xor1 ^= x;
+        }
+
+        for (int x : arr2) {
+            xor2 ^= x;
+        }
+
+        return xor1 & xor2;
+    }
+}
