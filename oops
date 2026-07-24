@@ -1,0 +1,160 @@
+1. Java Inheritance I (HackerRank)
+class Animal {
+    void walk() {
+        System.out.println("I am walking");
+    }
+}
+
+class Bird extends Animal {
+    void fly() {
+        System.out.println("I am flying");
+    }
+
+    void sing() {
+        System.out.println("I am singing");
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Bird bird = new Bird();
+        bird.walk();
+        bird.fly();
+        bird.sing();
+    }
+}
+2. Java Inheritance II (HackerRank)
+class Arithmetic {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+public class Solution extends Arithmetic {
+    public static void main(String[] args) {
+        Solution obj = new Solution();
+
+        System.out.println("My superclass is: " + obj.getClass().getSuperclass().getName());
+        System.out.println(obj.add(10, 32));
+    }
+}
+3. Java Abstract Class (HackerRank)
+abstract class Book {
+    String title;
+
+    abstract void setTitle(String s);
+
+    String getTitle() {
+        return title;
+    }
+}
+
+class MyBook extends Book {
+    void setTitle(String s) {
+        title = s;
+    }
+}
+4. Interface (HackerRank)
+interface AdvancedArithmetic {
+    int divisorSum(int n);
+}
+
+class MyCalculator implements AdvancedArithmetic {
+
+    public int divisorSum(int n) {
+        int sum = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if (n % i == 0)
+                sum += i;
+        }
+
+        return sum;
+    }
+}
+5. Method Overriding I (HackerRank)
+class Sports {
+    String getName() {
+        return "Generic Sports";
+    }
+
+    void getNumberOfTeamMembers() {
+        System.out.println("Each team has n players in " + getName());
+    }
+}
+
+class Soccer extends Sports {
+
+    @Override
+    String getName() {
+        return "Soccer Class";
+    }
+
+    @Override
+    void getNumberOfTeamMembers() {
+        System.out.println("Each team has 11 players in " + getName());
+    }
+}
+6. Method Overriding II (Use super keyword) (HackerRank)
+class BiCycle {
+    String define_me() {
+        return "a vehicle with pedals.";
+    }
+}
+
+class MotorCycle extends BiCycle {
+
+    String define_me() {
+        return "a cycle with an engine.";
+    }
+
+    MotorCycle() {
+        System.out.println("Hello I am a motorcycle, I am " + define_me());
+
+        String temp = super.define_me();
+        System.out.println("My ancestor is a cycle who is " + temp);
+    }
+}
+7. Java instanceof Keyword (HackerRank)
+import java.util.*;
+
+class Student {}
+class Rockstar {}
+class Hacker {}
+
+public class Solution {
+
+    static String count(ArrayList<Object> mylist) {
+        int student = 0;
+        int rockstar = 0;
+        int hacker = 0;
+
+        for (Object obj : mylist) {
+            if (obj instanceof Student)
+                student++;
+            if (obj instanceof Rockstar)
+                rockstar++;
+            if (obj instanceof Hacker)
+                hacker++;
+        }
+
+        return student + " " + rockstar + " " + hacker;
+    }
+}
+8. Java Iterator (HackerRank)
+import java.util.*;
+
+public class Solution {
+
+    static Iterator func(ArrayList<?> mylist) {
+        Iterator<?> it = mylist.iterator();
+
+        while (it.hasNext()) {
+            Object element = it.next();
+            if (element instanceof String)
+                break;
+        }
+
+        return it;
+    }
+}
